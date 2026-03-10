@@ -1,3 +1,32 @@
+.transitionContainer {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.firstScreen,
+.secondScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.secondScreen {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bgImage {
+  width: 100vw;
+  height: 100vh;
+  background: url("/tela2pronta.png") center center no-repeat;
+  background-size: cover;
+}
 :root {
   --background: #2743a8; /* azul royal */
   --foreground: #fff;
