@@ -40,7 +40,7 @@ export default function Home() {
               playsInline
               preload="metadata"
               controls={false}
-              poster="/tela1frameinicial.jpg"
+              poster="/tela1frame%20inicial.png"
               style={{ pointerEvents: started ? "auto" : "none" }}
               onEnded={handleVideoEnd}
             />

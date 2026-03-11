@@ -5,7 +5,8 @@
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  background: #000;
+  background: url("/tela1frame%20inicial.png") center center no-repeat #000;
+  background-size: cover;
   border-radius: 0;
   margin: 0;
   z-index: 1;
