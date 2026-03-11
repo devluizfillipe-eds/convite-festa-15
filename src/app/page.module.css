@@ -1,10 +1,97 @@
+.fullscreenVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  background: #000;
+  border-radius: 0;
+  margin: 0;
+  z-index: 1;
+}
+.presentScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presentBgImage {
+  width: 100vw;
+  height: 100vh;
+  background: url("/telapresentes.png") center center no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.circleBtn1,
+.circleBtn2,
+.circleBtn3 {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(30, 30, 30, 0.7);
+  color: #fff;
+  font-size: 2rem;
+  border: 2px solid #fff;
+  z-index: 20;
+  opacity: 0.8;
+}
+.circleBtn1,
+.circleBtn2,
+.circleBtn3 {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: transparent;
+  color: transparent;
+  font-size: 2rem;
+  border: none;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: auto;
+}
+
+/* Posições iniciais aproximadas, ajuste conforme necessário */
+.circleBtn1 {
+  left: 13%;
+  top: 62%;
+}
+.circleBtn2 {
+  left: 50%;
+  top: 62%;
+  transform: translateX(-50%);
+}
+.circleBtn3 {
+  right: 13%;
+  top: 62%;
+}
 .transitionContainer {
   position: relative;
   width: 100vw;
   min-height: 100vh;
 }
 
-.firstScreen,
+.firstScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .secondScreen {
   position: absolute;
   top: 0;
@@ -12,6 +99,10 @@
   width: 100vw;
   min-height: 100vh;
   height: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .secondScreen {
@@ -21,11 +112,22 @@
   justify-content: center;
 }
 
+:root {
+  --background: #2743a8; /* azul royal */
+  --foreground: #fff;
+  --text-primary: #000;
+  --text-secondary: #666;
+  --button-primary-hover: #383838;
+  --button-secondary-hover: #f2f2f2;
+  --button-secondary-border: #ebebeb;
+}
+
 .bgImage {
   width: 100vw;
   height: 100vh;
   background: url("/tela2pronta.png") center center no-repeat;
   background-size: cover;
+  background-position: center center;
 }
 :root {
   --background: #2743a8; /* azul royal */
@@ -74,6 +176,7 @@
   justify-content: center;
   background: #fff;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .video {
@@ -87,12 +190,13 @@
 .invisibleBtn {
   position: absolute;
   left: 50%;
-  bottom: 18%; /* Aproximadamente acima do selo dourado */
+  bottom: 18%;
   transform: translate(-50%, 0);
   width: 80px;
   height: 80px;
-  background: transparent;
-  border: none;
+  background: rgba(30, 30, 30, 0.7); /* visível para ajuste */
+  border: 2px solid #111;
+  border-radius: 8px;
   z-index: 2;
   cursor: pointer;
   padding: 0;
