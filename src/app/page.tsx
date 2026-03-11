@@ -38,9 +38,9 @@ export default function Home() {
               className={styles.fullscreenVideo}
               src="/video01animação.mp4"
               playsInline
-              preload="auto"
+              preload="metadata"
               controls={false}
-              poster=""
+              poster="/tela1frameinicial.jpg"
               style={{ pointerEvents: started ? "auto" : "none" }}
               onEnded={handleVideoEnd}
             />
