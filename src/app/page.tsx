@@ -1,5 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useNavigation } from "../context/NavigationContext";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
   const [started, setStarted] = useState(false);
   const [showSecondScreen, setShowSecondScreen] = useState(false);
   const [showPresentScreen, setShowPresentScreen] = useState(false);
+  const { setShowBack, setBackHandler } = useNavigation();
 
   const handlePlay = () => {
     if (videoRef.current && !started) {
@@ -18,6 +20,37 @@ export default function Home() {
   const handleVideoEnd = () => {
     setTimeout(() => setShowSecondScreen(true), 300); // pequena pausa para suavidade
   };
+
+  // Atualiza visibilidade do botão "voltar" e registra handler interno
+  useEffect(() => {
+    setShowBack(showSecondScreen || showPresentScreen);
+
+    // define handler direto (não uma função que retorna função)
+    setBackHandler(() => {
+      if (showPresentScreen) {
+        setShowPresentScreen(false);
+        return;
+      }
+      if (showSecondScreen) {
+        // voltar da segunda tela para a primeira: resetar o vídeo para o frame inicial
+        setShowSecondScreen(false);
+        setStarted(false);
+        if (videoRef.current) {
+          try {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+            // reload para garantir que o poster seja mostrado em alguns navegadores
+            videoRef.current.load();
+          } catch (e) {
+            // ignore
+          }
+        }
+        return;
+      }
+    });
+
+    return () => setBackHandler(undefined);
+  }, [showSecondScreen, showPresentScreen, setShowBack, setBackHandler]);
 
   return (
     <div className={styles.page}>
