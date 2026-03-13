@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [started, setStarted] = useState(false);
   const [showSecondScreen, setShowSecondScreen] = useState(false);
   const [showPresentScreen, setShowPresentScreen] = useState(false);
@@ -13,6 +14,13 @@ export default function Home() {
   const handlePlay = () => {
     if (videoRef.current && !started) {
       videoRef.current.play();
+      // tenta tocar a música junto com o vídeo (apenas após interação do usuário)
+      if (audioRef.current) {
+        audioRef.current.volume = 0.9;
+        audioRef.current.play().catch(() => {
+          // se falhar (políticas de autoplay), silenciosamente ignora
+        });
+      }
       setStarted(true);
     }
   };
@@ -29,17 +37,32 @@ export default function Home() {
         setShowPresentScreen(false);
         return;
       }
+
       if (showSecondScreen) {
         setShowSecondScreen(false);
         setStarted(false);
+
         if (videoRef.current) {
           try {
             videoRef.current.pause();
             videoRef.current.currentTime = 0;
-
+            // reload para garantir que o poster seja mostrado em alguns navegadores
             videoRef.current.load();
-          } catch (e) {}
+          } catch (e) {
+            // ignore
+          }
         }
+
+        // também parar a música e resetar
+        if (audioRef.current) {
+          try {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+          } catch (e) {
+            // ignore
+          }
+        }
+
         return;
       }
     });
@@ -72,6 +95,8 @@ export default function Home() {
               style={{ pointerEvents: started ? "auto" : "none" }}
               onEnded={handleVideoEnd}
             />
+            {/* elemento de áudio: coloque o arquivo MP3 em /public/music.mp3 */}
+            <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
           </div>
           {/* Segunda tela: imagem de fundo e botões */}
           <div
