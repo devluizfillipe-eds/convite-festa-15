@@ -21,29 +21,24 @@ export default function Home() {
     setTimeout(() => setShowSecondScreen(true), 300); // pequena pausa para suavidade
   };
 
-  // Atualiza visibilidade do botão "voltar" e registra handler interno
   useEffect(() => {
     setShowBack(showSecondScreen || showPresentScreen);
 
-    // define handler direto (não uma função que retorna função)
     setBackHandler(() => {
       if (showPresentScreen) {
         setShowPresentScreen(false);
         return;
       }
       if (showSecondScreen) {
-        // voltar da segunda tela para a primeira: resetar o vídeo para o frame inicial
         setShowSecondScreen(false);
         setStarted(false);
         if (videoRef.current) {
           try {
             videoRef.current.pause();
             videoRef.current.currentTime = 0;
-            // reload para garantir que o poster seja mostrado em alguns navegadores
+
             videoRef.current.load();
-          } catch (e) {
-            // ignore
-          }
+          } catch (e) {}
         }
         return;
       }

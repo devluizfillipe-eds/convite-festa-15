@@ -26,9 +26,7 @@ export function NavigationProvider({
     undefined,
   );
 
-  // stable setter to avoid changing identity between renders
   const setBackHandler = useCallback((fn?: () => void) => {
-    // use functional update so we can set a function value safely
     setBackHandlerState(() => fn);
   }, []);
 

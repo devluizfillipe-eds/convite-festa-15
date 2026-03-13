@@ -11,7 +11,7 @@ export default function TopBar() {
   useEffect(() => {
     const check = () => {
       const w = window.innerWidth;
-      // Assumimos que larguras >= 1024px são desktop/PC
+
       setShowOverlay(w >= 1024);
     };
 
@@ -21,13 +21,11 @@ export default function TopBar() {
   }, []);
 
   const handleBack = () => {
-    // Prioritize in-app back handler when available (e.g. page state)
     if (backHandler) {
       backHandler();
       return;
     }
 
-    // Fallback to browser/next history
     try {
       if (typeof window !== "undefined" && window.history.length > 1) {
         router.back();
